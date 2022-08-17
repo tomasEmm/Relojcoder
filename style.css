@@ -194,7 +194,7 @@ input:focus{
   }
   
   .modal {
-    background-color: #fff;
+    background-color: rgb(1, 0, 0);
     width: 600px;
     max-width: 100%;
     padding: 30px 50px;
@@ -203,9 +203,7 @@ input:focus{
     text-align: center;
   }
   
-  .modal h1 {
-    margin: 0;
-  }
+  
   
   .modal p {
     opacity: 0.7;
@@ -213,9 +211,13 @@ input:focus{
   }
 
   .botone {
+    
+  margin-left: 45%;
+  
+  
     background-color: #47a386;
-    border: 2px;
-    border-radius: 5px;
+    border: 20px;
+    border-radius: 5x;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: #fff;
     font-size: 14px;

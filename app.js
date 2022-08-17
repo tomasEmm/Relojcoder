@@ -127,3 +127,31 @@ open.addEventListener('click', () => {
 close.addEventListener('click', () => {
   modal_container.classList.remove('show');
 });
+
+
+const usuario ={
+  nombre : "Tom", 
+  rol : "alumno",
+  curso : "javascript",
+  tel : { casa : null,
+    movil : {
+      movistar : null,
+      personal : 1151511 ,
+
+
+    }
+
+  },
+  email:'tomprueba'
+}
+
+
+const { nombre,curso,rol,apellido} = usuario
+console.log (nombre,curso,rol, apellido);
+
+
+const a = 3;
+const b = -2;
+
+console.log(a > 0 && b > 0);
+ 
