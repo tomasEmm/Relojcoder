@@ -118,7 +118,26 @@ setDate();
 
 const open = document.getElementById('open');
 const modal_container = document.getElementById('modal_container');
-const close = document.getElementById('close');
+const close = document.querySelector('#close')
+close.addEventListener('click',()=>{
+  Swal.fire({
+    title: 'Desea guardar los cambios?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Guardar',
+    denyButtonText: `No guardar`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      Swal.fire('Guardar!', '', 'success')
+    } else if (result.isDenied) {
+      Swal.fire('No se guardo los cambios', '', 'info')
+    }
+  })
+}
+)
+
+
 
 open.addEventListener('click', () => {
   modal_container.classList.add('show');  
