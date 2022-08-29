@@ -54,8 +54,27 @@
   <div id="modal_container" class="modal-container">
     <div class="modal">
       <h1>Calendario</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque assumenda dignissimos illo explicabo natus quia repellat, praesentium voluptatibus harum ipsam dolorem cumque labore sunt dicta consectetur, nesciunt maiores delectus maxime?
+      <p><hr class="linea">
+<div class="calendar">
+    <div class="calendar__info">
+        <div class="calendar__prev" id="prev-month">&#9664;</div>
+        <div class="calendar__month" id="month"></div>
+        <div class="calendar__year" id="year"></div>
+        <div class="calendar__next" id="next-month">&#9654;</div>
+    </div>
+
+    <div class="calendar__week">
+        <div class="calendar__day calendar__item">Lunes</div>
+        <div class="calendar__day calendar__item">Martes</div>
+        <div class="calendar__day calendar__item">Miercoles</div>
+        <div class="calendar__day calendar__item">Jueves</div>
+        <div class="calendar__day calendar__item">Viernes</div>
+        <div class="calendar__day calendar__item">Sabado</div>
+        <div class="calendar__day calendar__item">Domingo</div>
+    </div>
+
+    <div class="calendar__dates" id="dates"></div>
+</div>
       </p>
       <button class="botone" id="close">Cerrar</button>
     </div>
@@ -63,7 +82,7 @@
 
 
 
-
+  
 <div class="list roundBorder">
     <hr class="linea">
     <div class="date">
@@ -86,5 +105,7 @@
 <hr class="linea">
 
 </div>
+
+ 
 </body>
 </html>
