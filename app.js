@@ -115,27 +115,31 @@ const renderOrderedTasks = () => {
 setDate();
 
 
-
+//modal//
 const open = document.getElementById('open');
-const modal_container = document.getElementById('modal_container');
 const close = document.querySelector('#close')
+const modal_container = document.getElementById('modal_container');
 close.addEventListener('click',()=>{
   Swal.fire({
-    title: 'Desea guardar los cambios?',
-    showDenyButton: true,
+    title: 'Guardar cambios?',
+
+    icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Guardar',
-    denyButtonText: `No guardar`,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Guardar!'
   }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
-      Swal.fire('Guardar!', '', 'success')
-    } else if (result.isDenied) {
-      Swal.fire('No se guardo los cambios', '', 'info')
+      Swal.fire(
+        'Listo',
+        'Los cambios fueron realizados.',
+        'success'
+      )
     }
-  })
-}
-)
+  })})
+
+
+
 
 
 
@@ -274,9 +278,9 @@ writeMonth(monthNumber);
 
 //////////////////
 
-fetch('https://jsonplaceholder.typicode.com/todos/1')
-  .then(response => response.json())
-  .then(json => console.log(json))
+//fetch('https://jsonplaceholder.typicode.com/todos/1')
+  //.then(response => response.json())
+  //.then(json => console.log(json))
 
  //fetch('https://jsonplaceholder.typicode.com/todos/1')
  //.then((res) => res.json())
@@ -290,3 +294,184 @@ fetch('https://jsonplaceholder.typicode.com/todos/1')
   //  listaPosts.append(li)
   //})
  //})
+
+ let input = document.querySelector('.input_text');
+ let main = document.querySelector('#name');
+ let temp = document.querySelector('.temp');
+ let desc = document.querySelector('.desc');
+ let clouds = document.querySelector('.clouds');
+ let button= document.querySelector('.submit');
+
+
+button.addEventListener('click', function(name){
+fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=3958c4ed871cf8533eeebab22a628df6')
+.then(response => response.json())
+.then(data => {
+  let tempValue = data['main']['temp'];
+  let nameValue = data['name'];
+  let descValue = data['weather'][0]['description'];
+
+  main.innerHTML = nameValue;
+  desc.innerHTML = "Clima - "+descValue;
+  temp.innerHTML = "Temperatura - "+tempValue;
+  input.value ="";
+
+})
+
+.catch(err => alert("Escriba País/Region!"));
+})
+        
+  ////////////////////////
+  window.addEventListener('load', ()=> {
+    let lon
+    let lat
+
+    let temperaturaValor = document.getElementById('temperatura-valor')  
+    let temperaturaDescripcion = document.getElementById('temperatura-descripcion')  
+    
+    let ubicacion = document.getElementById('ubicacion')  
+    let iconoAnimado = document.getElementById('icono-animado') 
+
+    let vientoVelocidad = document.getElementById('viento-velocidad') 
+
+
+    if(navigator.geolocation){
+       navigator.geolocation.getCurrentPosition( posicion => {
+           //console.log(posicion.coords.latitude)
+           lon = posicion.coords.longitude
+           lat = posicion.coords.latitude
+            //ubicación actual    
+           const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3958c4ed871cf8533eeebab22a628df6`
+
+           //ubicación por ciudad
+           //const url = `https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=3958c4ed871cf8533eeebab22a628df6`
+
+           console.log(url)
+
+           fetch(url)
+            .then( response => { return response.json()})
+            .then( data => {
+                console.log(data)
+                
+                let temp = Math.round(data.main.temp)
+                console.log(temp)
+                temperaturaValor.textContent = `${temp} ° C`
+
+                console.log(data.weather[0].description)
+                let desc = data.weather[0].description
+                temperaturaDescripcion.textContent = desc.toUpperCase()
+                ubicacion.textContent = data.name
+                
+                vientoVelocidad.textContent = `${data.wind.speed} m/s`
+                
+              
+
+              })
+            })
+               
+         }
+     })
+
+
+     //////////////////////
+
+     let calendar;
+     let Calendar = FullCalendar.Calendar;
+     let events = [];
+    $(function() {
+        if (!!scheds) {
+            Object.keys(scheds).map(k => {
+              let row = scheds[k]
+                events.push({ id: row.id, title: row.title, start: row.start_datetime, end: row.end_datetime });
+            })
+        }
+        let date = new Date()
+        let d = date.getDate(),
+            m = date.getMonth(),
+            y = date.getFullYear()
+
+        calendar = new Calendar(document.getElementById('calendar'), {
+            initialView: 'dayGridMonth',
+            locale: 'es', //Idioma Español FullCalendar
+            headerToolbar: {
+                left: 'prev,next today',
+                right: 'dayGridMonth,dayGridWeek,list',
+                center: 'title',
+            },
+            selectable: true,
+            themeSystem: 'bootstrap',
+            //Eventos predeterminados aleatorios
+            events: events,
+            eventClick: function(info) {
+              let _details = $('#event-details-modal')
+              let id = info.event.id
+                if (!!scheds[id]) {
+                    _details.find('#title').text(scheds[id].title)
+                    _details.find('#description').text(scheds[id].description)
+                    _details.find('#start').text(scheds[id].sdate)
+                    _details.find('#end').text(scheds[id].edate)
+                    _details.find('#edit,#delete').attr('data-id', id)
+                    _details.modal('show')
+                } else {
+                    alert("Event is undefined");
+                }
+            },
+            eventDidMount: function(info) {
+                
+            },
+            editable: true
+        });
+
+        calendar.render();
+
+    }
+)
+
+
+///////////
+FullCalendar.globalLocales.push(function () {
+    'use strict';
+  
+    var es = {
+      code: 'es',
+      week: {
+        dow: 1, // Monday is the first day of the week.
+        doy: 4, // The week that contains Jan 4th is the first week of the year.
+      },
+      buttonText: {
+        prev: 'Ant',
+        next: 'Sig',
+        today: 'Hoy',
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        list: 'Agenda',
+      },
+      buttonHints: {
+        prev: '$0 antes',
+        next: '$0 siguiente',
+        today(buttonText) {
+          return (buttonText === 'Día') ? 'Hoy' :
+            ((buttonText === 'Semana') ? 'Esta' : 'Este') + ' ' + buttonText.toLocaleLowerCase()
+        },
+      },
+      viewHint(buttonText) {
+        return 'Vista ' + (buttonText === 'Semana' ? 'de la' : 'del') + ' ' + buttonText.toLocaleLowerCase()
+      },
+      weekText: 'Sm',
+      weekTextLong: 'Semana',
+      allDayText: 'Todo el día',
+      moreLinkText: 'más',
+      moreLinkHint(eventCnt) {
+        return `Mostrar ${eventCnt} eventos más`
+      },
+      noEventsText: 'No hay eventos para mostrar',
+      navLinkHint: 'Ir al $0',
+      closeHint: 'Cerrar',
+      timeHint: 'La hora',
+      eventHint: 'Evento',
+    };
+  
+    return es;
+  
+  }());
