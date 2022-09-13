@@ -20,12 +20,12 @@
        pMes = document.getElementById ('mes'),
        pYear = document.getElementById ('year');
 
-      let semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves','Viernes','Sabado'];
+      let semana = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday','Saturday'];
       pDiaSemana.textContent = semana[diaSemana];
 
       pDia.textContent = dia;
 
-      let meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+      let meses = ['January ', 'February ', 'March', ' April ', 'May','June','July ','August','September ','Octuber ','November ','December '];
       pMes.textContent = meses[mes];
 
       pYear.textContent = year;
@@ -181,7 +181,7 @@ console.log(a > 0 && b > 0);
 
 ////////calendario////
 
-let monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Deciembre'];
+let monthNames = ['January ', 'February ', 'March', ' April ', 'May','June','July ','August','September ','Octuber ','November ','December '];
 
 let currentDate = new Date();
 let currentDay = currentDate.getDate();
